@@ -1,0 +1,32 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Experiment Configuration</h1>
+    <form (ngSubmit)="onSubmit()" #experimentConfigForm="ngForm">
+
+      <div class="form-group">
+        <label for="partCode">Participant Code</label>
+        <input type="number" class="form-control" id="partCode" required [(ngModel)]="model.participantCode" name="participantCode"
+          #participantCode="ngModel" min="0" max="99">
+      </div>
+
+      <div class="form-group">
+        <label for="condCode">Condition Code</label>
+        <input type="text" class="form-control" id="condCode" required [(ngModel)]="model.conditionCode" name="conditionCode"
+          #conditionCode="ngModel" placeholder="Condition code (e.g. &quot;C00&quot;)">
+        <div [hidden]="!conditionCode" class="alert alert-danger">
+          Condition Code is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="entryMode">Entry Mode</label>
+        <select class="form-control" id="entryMode" required [(ngModel)]="model.entryMode" name="entryMode" #entryMode="ngModel">
+          <option *ngFor="let mode of modes" [value]="mode">{{mode}}</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!experimentConfigForm.form.valid">Submit</button>
+      <button type="button" class="btn btn-default" (click)="experimentConfigForm.reset()">Cancel</button>
+    </form>
+  </div>
+</div>
