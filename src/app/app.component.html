@@ -1,8 +1,12 @@
-<div style="text-align:center">
-  <h2>
-    Welcome to {{ title }}!
-  </h2>
-  <!-- <app-experiment-config></app-experiment-config> -->
-  <app-keyboard [keyboardLayout]="" [navigationControls]=""></app-keyboard>
-  
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="">Gamepad Text Entry HCI Experiment</a>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
+  <!-- <app-experiment-config></app-experiment-config> -->
+  <!-- <app-keyboard [keyboardLayout]="" [navigationControls]=""></app-keyboard> -->

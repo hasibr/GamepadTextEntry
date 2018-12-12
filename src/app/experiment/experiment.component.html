@@ -1,0 +1,16 @@
+<form>
+  <div class="form-group">
+    <label for="user-input">
+      <h1 class="display-4">Type anything</h1>
+    </label>
+    <div class="col-12">
+      <input class="form-control form-control-lg" type="text" value="{{keyboardInputText}}" id="user-input" placeholder="Navigate through the keyboard and enter some text.">
+    </div>
+  </div>
+  <div>
+    <app-keyboard keyboardName="left-keyboard" keyboardLayout="" navigationControls=""></app-keyboard>
+  </div>
+  <div style="display: none;">
+    <app-keyboard keyboardName="right-keyboard" keyboardLayout="" navigationControls=""></app-keyboard>
+  </div>
+</form>
