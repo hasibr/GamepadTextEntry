@@ -1,11 +1,6 @@
 /* @import "../../../node_modules/simple-keyboard-key-navigation/build/css/index.css";
 @import "../../../node_modules/simple-keyboard/build/css/index.css"; */
 
-.habibi {
-  color: blue;
-  font-size: 500px;
-}
-
 input {
   width: 100%;
   height: 100px;

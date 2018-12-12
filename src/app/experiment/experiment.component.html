@@ -1,16 +1,62 @@
 <form>
   <div class="form-group">
     <label for="user-input">
-      <h1 class="display-4">Type anything</h1>
+      <h4><small>Enter the phrase below and press B on the controller to continue.</small></h4>
+      <h1><small>{{phrase}}</small></h1>
     </label>
     <div class="col-12">
       <input class="form-control form-control-lg" type="text" value="{{keyboardInputText}}" id="user-input" placeholder="Navigate through the keyboard and enter some text.">
     </div>
   </div>
-  <div>
-    <app-keyboard keyboardName="left-keyboard" keyboardLayout="" navigationControls=""></app-keyboard>
+  <div *ngIf="!startedTest && !completedTest" class="alert alert-primary" role="alert">
+      Press Start button on controller to begin.
+    </div>
+    <div *ngIf="completedTest" class="alert alert-success" role="alert">
+      Test completed! Press the Start button to start a new test.
+    </div>
+  <div *ngIf="dualKeyboard">
+    <div id="kbCarousel" class="carousel slide" data-interval="false" data-wrap="false" data-keyboard="false"
+      data-pause="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <app-keyboard keyboardName="left-keyboard" [keyboardLayout]="leftKeyboardLayout"></app-keyboard>
+        </div>
+        <div class="carousel-item">
+          <app-keyboard keyboardName="right-keyboard" [keyboardLayout]="rightKeyboardLayout"></app-keyboard>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#kbCarousel" role="button" data-slide="prev" id="carouselPrev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#kbCarousel" role="button" data-slide="next" id="carouselNext">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
   </div>
-  <div style="display: none;">
-    <app-keyboard keyboardName="right-keyboard" keyboardLayout="" navigationControls=""></app-keyboard>
+  <div *ngIf="!dualKeyboard">
+    <app-keyboard keyboardName="single-keyboard" keyboardLayout="" navigationControls=""></app-keyboard>
+  </div>
+  <br/>
+  <div class="form-group row" style="display: flex;flex-direction: column;">
+      <h4>Data:</h4>
+      <!-- <input type="text" class="form-control-plaintext" name="testData" value="{{analytics}}" readonly> -->
+      <div *ngFor="let data of analytics" style="display: flex; flex-direction: column; padding-bottom: 1rem;">
+        <p>{{data.phrase}}<br />{{data.enteredPhrase}}</p>
+        <div *ngFor="let key of data.keys">
+          <span>{{key.pressedOn}}</span>&#x2c; <span>{{key.key}}</span>          
+        </div>
+      </div>
+  </div>
+
+  <button type="button" id="submitPhraseBtn" style="display: none" data-toggle="modal" data-target=".bd-example-modal-sm"></button>
+  <div id="submitModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="submitPhraseConfirmModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        Submit phrase? A for Yes. Y for No.
+      </div>
+    </div>
   </div>
 </form>
