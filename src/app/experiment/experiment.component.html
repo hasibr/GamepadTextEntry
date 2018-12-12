@@ -12,7 +12,7 @@
       Press Start button on controller to begin.
     </div>
     <div *ngIf="completedTest" class="alert alert-success" role="alert">
-      Test completed! Press the Start button to start a new test.
+      Test completed! Press the restart button below to start a new test.
     </div>
   <div *ngIf="dualKeyboard">
     <div id="kbCarousel" class="carousel slide" data-interval="false" data-wrap="false" data-keyboard="false"
@@ -39,6 +39,7 @@
     <app-keyboard keyboardName="single-keyboard" keyboardLayout="" navigationControls=""></app-keyboard>
   </div>
   <br/>
+  <button type="button" (click)="restartTest()" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Restarting the test will clear the test data below. Make sure you have saved what you need.">Restart</button>
   <div class="form-group row" style="display: flex;flex-direction: column;">
       <h4>Data:</h4>
       <!-- <input type="text" class="form-control-plaintext" name="testData" value="{{analytics}}" readonly> -->

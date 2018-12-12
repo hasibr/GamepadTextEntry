@@ -98,6 +98,19 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     }
   }
 
+  restartTest() {
+    this.startedTest = false;
+    this.completedTest = false;
+    this.startedEnteringPhrase = false;
+    this.cursor = 1;
+    this.phrases = shuffleArray(sampleTexts).slice(0, this.trials);
+    this.phrase = this.phrases[0];
+    this.selectBtnPressedDown = false;
+    this.timeData = null;
+    this.analytics = [];
+    console.log("restarted test");
+  }
+
   nextPhrase() {
     const cursor = this.cursor;
 
@@ -115,7 +128,6 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
 
     if (!startedEnteringPhrase && !this.completedTest) {
       console.log("starting timer...")
-
       const currentPhrase = this.phrase;
       this.startedTest = true;
       this.completedTest = false;
@@ -131,17 +143,16 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
 
   endTimer() {
     const startedEnteringPhrase = this.startedEnteringPhrase;
-
     if (startedEnteringPhrase) {
-      this.resetState();
+      this.resetPhrase();
     }
   }
 
-  resetState() {
+  resetPhrase() {
     this.keyboardInputText = "";
     this.timeData = {
       enteredPhrase: "",
-      phrase: this.phrase;,
+      phrase: this.phrase,
       startedOn: Date.now(),
       keys: []
     };
