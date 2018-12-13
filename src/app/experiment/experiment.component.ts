@@ -30,7 +30,7 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
   public completedTest = false;
   private startedEnteringPhrase = false;
   private submitPromptShowing = false;
-  private trials = 2;
+  private trials = 10;
   private cursor = 1;
   private phrases = shuffleArray(sampleTexts).slice(0, this.trials);
   private phrase: String;

@@ -76,7 +76,7 @@ export class KeyboardComponent {
     /**
      * If you want to handle the shift and caps lock buttons
      */
-    if (button === "{shift}" || button === "{lock}") this.handleShift();
+    //if (button === "{shift}" || button === "{lock}") this.handleShift();
     this.recordButtonPress(button);
   }
 
