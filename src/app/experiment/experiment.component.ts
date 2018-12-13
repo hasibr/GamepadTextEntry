@@ -99,7 +99,7 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     else if (event.key === "Enter") {
       this.activeKeyboard.selectKey();
       this.nextPhrase();
-      this.endTimer();
+      this.resetPhrase();
     }
   }
 
@@ -110,6 +110,9 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     this.cursor = 1;
     this.phrases = shuffleArray(sampleTexts).slice(0, this.trials);
     this.phrase = this.phrases[0];
+    this.phrasesCompleted = 0;
+    this.progress = 0;
+    this.progressBar.setAttribute("style", "width: " + this.progress + "%;");
     this.selectBtnPressedDown = false;
     this.timeData = null;
     this.analytics = [];
@@ -126,10 +129,8 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
       this.completedTest = true;
       this.startedTest = false;
     }
-    console.log("cursor: " + (this.phrasesCompleted));
     this.progress = Math.round((this.phrasesCompleted / this.trials) * 100);
     this.progressBar.setAttribute("style", "width: " + this.progress + "%;");
-    console.log(this.progress);
   }
 
   startTimer() {
@@ -150,15 +151,10 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     }
   }
 
-  endTimer() {
-    const startedEnteringPhrase = this.startedEnteringPhrase;
-    if (startedEnteringPhrase) {
-      this.resetPhrase();
-    }
-  }
-
   resetPhrase() {
+    console.log("reset phrase called");
     this.keyboardInputText = "";
+    this.activeKeyboard.keyboard.input
     this.timeData = {
       enteredPhrase: "",
       phrase: this.phrase,
@@ -196,12 +192,14 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     if (this.controller.buttons[1].pressed && !this.submitPromptShowing) {
       this.submitPromptShowing = true;
       this.modalBtn.click();
+      console.log("submit prompt opened (pressed B), submitPromptShowing=" + this.submitPromptShowing);
     }
 
     // Y button (no do not submit, cancel modal go back to typing)
     if (this.controller.buttons[3].pressed && this.submitPromptShowing) {
       this.submitPromptShowing = false;
       this.modalBtn.click();
+      console.log("submit prompt closed (pressed Y), submitPromptShowing=" + this.submitPromptShowing);
       return;
     }
 
@@ -212,7 +210,6 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     if (this.controller.buttons[0].pressed) {
       if (this.selectBtnPressedDown) return;
 
-      // Select the key the cursor is on and enter into input
       this.selectBtnPressedDown = true;
 
       this.activeKeyboard.selectKey();
@@ -225,10 +222,12 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
       if (this.submitPromptShowing) {
         const newTimeData = Object.assign({}, this.timeData, { enteredPhrase: this.keyboardInputText })
         this.analytics.push(newTimeData);
-        this.modalBtn.click();
-        this.submitPromptShowing = false;
+        this.resetPhrase();
         this.nextPhrase();
-        this.endTimer();
+        this.submitPromptShowing = false;
+        this.modalBtn.click();
+        console.log("submit prompt closed (pressed A), submitPromptShowing=" + this.submitPromptShowing);
+        
       }
     }
 
