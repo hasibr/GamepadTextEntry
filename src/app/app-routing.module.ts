@@ -4,8 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExperimentComponent } from './experiment/experiment.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/experiment', pathMatch: 'full' },
-  { path: 'experiment', component: ExperimentComponent }
+  { path: '', component: ExperimentComponent }
 ];
 
 @NgModule({

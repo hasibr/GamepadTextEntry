@@ -222,8 +222,8 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
       if (this.submitPromptShowing) {
         const newTimeData = Object.assign({}, this.timeData, { enteredPhrase: this.keyboardInputText })
         this.analytics.push(newTimeData);
-        this.resetPhrase();
         this.nextPhrase();
+        this.resetPhrase();
         this.submitPromptShowing = false;
         this.modalBtn.click();
         console.log("submit prompt closed (pressed A), submitPromptShowing=" + this.submitPromptShowing);
