@@ -30,8 +30,10 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
   public completedTest = false;
   private startedEnteringPhrase = false;
   private submitPromptShowing = false;
+  private phrasesCompleted = 0;
   private trials = 10;
   private cursor = 1;
+  private progress = 0;
   private phrases = shuffleArray(sampleTexts).slice(0, this.trials);
   private phrase: String;
   public timeData: AnalyticsInterface;
@@ -60,6 +62,7 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
   // Carousel controls
   nextSlide: HTMLElement;
   prevSlide: HTMLElement;
+  progressBar: HTMLElement;
 
   // Confirmation modal
   modalBtn: HTMLElement;
@@ -82,6 +85,8 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
     this.nextSlide = document.getElementById("carouselNext") as HTMLElement;
     this.prevSlide = document.getElementById("carouselPrev") as HTMLElement;
     this.modalBtn = document.getElementById("submitPhraseBtn") as HTMLElement;
+    this.progressBar = document.getElementById("progressBar") as HTMLElement;
+    this.progressBar.setAttribute("style", "width: " + this.progress + "%;");
     interval(100).subscribe(() => this.getGamePadStatus());
   }
 
@@ -113,7 +118,7 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
 
   nextPhrase() {
     const cursor = this.cursor;
-
+    this.phrasesCompleted++;
     if (this.cursor < this.trials) {
       this.cursor = cursor + 1;
       this.phrase = this.phrases[cursor];
@@ -121,6 +126,10 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
       this.completedTest = true;
       this.startedTest = false;
     }
+    console.log("cursor: " + (this.phrasesCompleted));
+    this.progress = Math.round((this.phrasesCompleted / this.trials) * 100);
+    this.progressBar.setAttribute("style", "width: " + this.progress + "%;");
+    console.log(this.progress);
   }
 
   startTimer() {
