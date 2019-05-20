@@ -227,7 +227,6 @@ export class ExperimentComponent implements OnInit, AfterViewInit {
         this.submitPromptShowing = false;
         this.modalBtn.click();
         console.log("submit prompt closed (pressed A), submitPromptShowing=" + this.submitPromptShowing);
-        
       }
     }
 
