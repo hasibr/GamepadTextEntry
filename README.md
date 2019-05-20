@@ -2,7 +2,7 @@
 
 A text entry web application built as part of a human-computer interaction (HCI) experiment. The web application interfaces to any gaming controller using the Gamepad API to allow the user to navigate through an onscreen virtual keyboard using the left joystick. The right joystick is used to switch between two halves of a QWERTY keyboard. The experiment aimed to study the performance of using a dual joystick in combination with a half-QWERTY layout (reducing cognitive load) for such a method of text entry.
 
-![Screenshot of GamePadTextEntry application](docs/GamePadTextEntry.png)
+![Screenshot of GamePadTextEntry application](docs/GamepadTextEntryScreenshot.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
